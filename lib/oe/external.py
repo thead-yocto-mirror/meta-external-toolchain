@@ -50,18 +50,23 @@ def gather_pkg_files(d):
     return files
 
 
-def copy_from_sysroots(pathnames, sysroots, mirrors, installdest):
+def copy_from_sysroots(pathnames, sysroots, mirrors, installdest, *, dest_from_source=False):
     '''Copy the specified files from the specified sysroots, also checking the
     specified mirror patterns as alternate paths, to the specified destination.'''
     import subprocess
 
     expanded_pathnames = expand_paths(pathnames, mirrors)
     searched_paths = search_sysroots(expanded_pathnames, sysroots)
-    for path, files in searched_paths:
+    for path, sysroot, files in searched_paths:
         if not files:
             bb.debug(1, 'Failed to find `{}`'.format(path))
         else:
-            destdir = oe.path.join(installdest, os.path.dirname(path))
+            if not dest_from_source:
+                destdir = oe.path.join(installdest, os.path.dirname(path))
+            else:
+                files = list(files)
+                f = files[0]
+                destdir = oe.path.join(installdest, os.path.relpath(f, sysroot))
             bb.utils.mkdirhier(destdir)
             subprocess.check_call(['cp', '-pPR'] + list(files) + [destdir + '/'])
             bb.note('Copied `{}`  to `{}/`'.format(', '.join(files), destdir))
@@ -98,14 +103,14 @@ def search_sysroots(path_entries, sysroots):
             check_path = sysroot + os.sep + pathname
             found_paths = glob.glob(check_path)
             if found_paths:
-                yield path, found_paths
+                yield path, sysroot, found_paths
                 break
         else:
-            yield path, None
+            yield path, sysroot, None
 
 
 def find_sysroot_files(paths, d):
     sysroots, mirrors = get_file_search_metadata(d)
     expanded = expand_paths(paths, mirrors)
     search_results = list(search_sysroots(expanded, sysroots))
-    return [v for k, v in search_results]
+    return [f for p, s, f in search_results]

@@ -79,7 +79,7 @@ python () {
 
     expanded = oe.external.expand_paths(search_patterns, mirrors)
     paths = oe.external.search_sysroots(expanded, sysroots)
-    if not any(f for p, f in paths):
+    if not any(f for p, s, f in paths):
         raise bb.parse.SkipPackage('No files found in external toolchain sysroot for: {}'.format(', '.join(search_patterns)))
 }
 
@@ -93,7 +93,7 @@ python external_toolchain_do_install () {
     installdest = d.getVar('D', True)
     sysroots, mirrors = oe.external.get_file_search_metadata(d)
     files = oe.external.gather_pkg_files(d)
-    oe.external.copy_from_sysroots(files, sysroots, mirrors, installdest)
+    oe.external.copy_from_sysroots(files, sysroots, mirrors, installdest, dest_from_source=bb.utils.to_boolean(d.getVar('EXTERNAL_DEST_FROM_SOURCE') or '0'))
     if 'do_install_extra' in d:
         bb.build.exec_func('do_install_extra', d)
     subprocess.check_call(['chown', '-R', 'root:root', installdest])

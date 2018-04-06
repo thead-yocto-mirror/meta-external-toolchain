@@ -18,6 +18,8 @@ def get_gdb_license(d):
 LICENSE := "${@get_gdb_license(d)}"
 LICENSE[vardepvalue] = "${LICENSE}"
 
+EXTERNAL_INSTALL_SOURCE_PATHS =+ "${EXTERNAL_TOOLCHAIN}/${EXTERNAL_TARGET_SYS}/debug-root"
+
 FILES_${PN} = "${bindir}/gdbserver"
 FILES_${PN}-doc = "${mandir}/man1/gdbserver.1"
 

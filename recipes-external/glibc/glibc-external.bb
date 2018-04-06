@@ -188,11 +188,13 @@ FILES_${PN} += "\
 
 FILES_${PN}-dev_remove := "${datadir}/aclocal"
 
+# Add multilib headers created in the glibc-package.inc by calling oe_multilib_header
 FILES_${PN}-dev_remove = "/lib/*.o"
-FILES_${PN}-dev += "${libdir}/*crt*.o"
-
-linux_include_subdirs = "asm asm-generic bits drm linux mtd rdma sound sys video"
-FILES_${PN}-dev += "${@' '.join('${includedir}/%s' % d for d in '${linux_include_subdirs}'.split())}"
+FILES_${PN}-dev += " \
+    ${libdir}/*crt*.o \
+    ${includedir}/bits/syscall* \
+    ${includedir}/bits/long-double* \
+"
 
 libc_baselibs_dev += "${@' '.join('${libdir}/' + os.path.basename(l.replace('${SOLIBS}', '${SOLIBSDEV}')) for l in '${libc_baselibs}'.replace('${base_libdir}/ld*${SOLIBS}', '').split() if l.endswith('${SOLIBS}'))}"
 FILES_${PN}-staticdev = "\

@@ -30,6 +30,7 @@ PREFERRED_PROVIDER_gdb-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gdb-externa
 # This is defined in default-providers.inc, which is parsed before the tcmode,
 # so we can't use ?=
 PREFERRED_PROVIDER_libgcc = "libgcc-external"
+PREFERRED_PROVIDER_linux-libc-headers = "linux-libc-headers-external"
 
 # Pass --no-sysroot-suffix when using an external toolchain with the SDK
 TOOLCHAIN_TARGET_TASK_append = " sdk-env-external-toolchain"
@@ -53,6 +54,7 @@ PNBLACKLIST[gcc-source] = "not building with an external toolchain"
 PNBLACKLIST[libgcc-initial] = "not building with an external toolchain"
 PNBLACKLIST[libgcc] = "not building with an external toolchain"
 PNBLACKLIST[libgfortran] = "not building with an external toolchain"
+PNBLACKLIST[linux-libc-headers] = "not building with an external toolchain"
 
 PNBLACKLIST_DYNAMIC += "\
     ${MLPREFIX}gcc-cross-${TARGET_ARCH} \

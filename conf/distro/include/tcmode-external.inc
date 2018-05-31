@@ -21,6 +21,7 @@ PREFERRED_PROVIDER_virtual/libiconv ?= "glibc-external"
 PREFERRED_PROVIDER_virtual/libc-locale ?= "glibc-locale-external"
 PREFERRED_PROVIDER_gdbserver ??= "gdb"
 PREFERRED_PROVIDER_gdb-cross-${TARGET_ARCH} ?= "gdb-external-cross-${TARGET_ARCH}"
+PREFERRED_PROVIDER_gdbserver ??= "gdbserver-external"
 PREFERRED_PROVIDER_oprofile ??= "oprofile"
 
 PREFERRED_PROVIDER_gcc-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gcc-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"

@@ -104,7 +104,6 @@ gcc_bindir = "${STAGING_BINDIR_TOOLCHAIN}/gcc"
 TUNE_CCARGS += "-B${gcc_bindir}"
 
 TCMODEOVERRIDES = "tcmode-external"
-TCMODEOVERRIDES_append = ":tcmode-${TCMODE}"
 OVERRIDES =. "${TCMODEOVERRIDES}:"
 
 python toolchain_metadata_setup () {

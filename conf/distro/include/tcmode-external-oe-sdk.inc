@@ -138,7 +138,7 @@ def get_setup_script_env(paths, d):
         if not candidates:
             setup = None
         elif len(candidates) > 1:
-            bb.fatal("tcmode-external-oe-sdk: multiple candidate setup scripts found, please specify with EXTERNAL_TOOLCHAIN_SETUP_SCRIPT: {}".format(" ".join(candidates)))
+            bb.fatal("tcmode-external-oe-sdk: multiple candidate setup scripts found, please specify with EXTERNAL_TOOLCHAIN_SETUP_SCRIPT: {}".format(" ".join(str(p) for p, e in candidates)))
         else:
             setup, env = candidates[0]
             bb.debug(1, "tcmode-external-oe-sdk: selected setup script {}".format(setup))

@@ -106,6 +106,10 @@ TUNE_LDARGS += "${@'-m ${LDEMULATION}' if '${LDEMULATION}' else ''}"
 gcc_bindir = "${STAGING_BINDIR_TOOLCHAIN}/gcc"
 TUNE_CCARGS .= "${@' -B${gcc_bindir}' if d.getVar('PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}binutils') != 'binutils-external-cross-${TARGET_ARCH}' else ''}"
 
+# Align the external toolchain ldflags with the internal
+TARGET_LDFLAGS_BUILD_ID = "-Wl,--build-id=sha1"
+TARGET_LDFLAGS += "${TARGET_LDFLAGS_BUILD_ID}"
+
 TCMODEOVERRIDES = "tcmode-external"
 TCMODEOVERRIDES_append = ":tcmode-${TCMODE}"
 OVERRIDES =. "${TCMODEOVERRIDES}:"

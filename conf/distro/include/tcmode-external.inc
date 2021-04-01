@@ -107,8 +107,7 @@ TUNE_CCARGS .= "${@' -B${gcc_bindir}' if d.getVar('PREFERRED_PROVIDER_virtual/${
 TARGET_LDFLAGS_BUILD_ID = "-Wl,--build-id=sha1"
 TARGET_LDFLAGS += "${TARGET_LDFLAGS_BUILD_ID}"
 
-TCMODEOVERRIDES = "tcmode-external"
-TCMODEOVERRIDES_append = ":tcmode-${TCMODE}"
+TCMODEOVERRIDES ?= "tcmode-external"
 OVERRIDES =. "${TCMODEOVERRIDES}:"
 
 python toolchain_metadata_setup () {

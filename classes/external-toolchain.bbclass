@@ -188,3 +188,4 @@ def debug_paths(d):
     return set(paths)
 
 FILES_${PN}-dbg = "${@' '.join(debug_paths(d))}"
+FILES_${PN}-dbg += "/usr/src/debug/${EXTERNAL_PN}"

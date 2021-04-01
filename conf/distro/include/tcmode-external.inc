@@ -56,9 +56,6 @@ TOOLCHAIN_TARGET_TASK_append = " sdk-env-external-toolchain"
 # Sanity check the toolchain configuration and toolchain
 INHERIT += "sanity-external-toolchain"
 
-# Pull in our utility functions for use elsewhere
-INHERIT += "external-common"
-
 # Ensure that we don't pull in any internal toolchain recipes
 INHERIT += "blacklist blacklist_dynamic"
 PNBLACKLIST[uclibc] = "not building with an external toolchain"

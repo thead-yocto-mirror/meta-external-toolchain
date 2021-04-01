@@ -2,5 +2,6 @@
 # RDEPENDS. Forcibly empty it, otherwise a TOOLCHAIN_TARGET_TASK_append at the
 # config level will break the buildtools-tarball build
 python () {
-    d.setVar('TOOLCHAIN_TARGET_TASK', '')
+    if d.getVar('EXTERNAL_ENABLED'):
+        d.setVar('TOOLCHAIN_TARGET_TASK', '')
 }

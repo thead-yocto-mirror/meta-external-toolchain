@@ -52,7 +52,7 @@ PREFERRED_PROVIDER_gdb-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gdb-externa
 PREFERRED_PROVIDER_libgcc = "libgcc-external"
 
 # Pass --no-sysroot-suffix when using an external toolchain with the SDK
-TOOLCHAIN_TARGET_TASK_append = " sdk-env-external-toolchain"
+TOOLCHAIN_TARGET_TASK:append = " sdk-env-external-toolchain"
 
 # Sanity check the toolchain configuration and toolchain
 INHERIT += "sanity-external-toolchain"
@@ -81,7 +81,7 @@ PNBLACKLIST_DYNAMIC += "\
 
 # We need our -cross recipes to rebuild when the external toolchain changes,
 # to recreate the links / wrapper scripts
-BB_HASHBASE_WHITELIST_remove = "EXTERNAL_TOOLCHAIN"
+BB_HASHBASE_WHITELIST:remove = "EXTERNAL_TOOLCHAIN"
 
 # For a toolchain built with multilibs, we don't want any suffix implicitly
 # added to the oe sysroot path, as those dirs will not exist.
@@ -94,9 +94,9 @@ HOST_CC_ARCH += "--no-sysroot-suffix"
 LDEMULATION = ""
 LDEMULATION_ENDIAN = "${@'bt' if 'bigendian' in '${TUNE_FEATURES}'.split() else 'lt'}"
 LDEMULATION_BITS = "${@'64' if 'n64' in '${TUNE_FEATURES}'.split() else '32'}"
-LDEMULATION_mips64 = "elf${LDEMULATION_BITS}${LDEMULATION_ENDIAN}smip${@bb.utils.contains('TUNE_FEATURES', 'n32', 'n32', '', d)}"
-LDEMULATION_x86-64 = "elf_${TARGET_ARCH}"
-LDEMULATION_x86-64_linux-gnux32 = "elf32_${TARGET_ARCH}"
+LDEMULATION:mips64 = "elf${LDEMULATION_BITS}${LDEMULATION_ENDIAN}smip${@bb.utils.contains('TUNE_FEATURES', 'n32', 'n32', '', d)}"
+LDEMULATION:x86-64 = "elf_${TARGET_ARCH}"
+LDEMULATION:x86-64:linux-gnux32 = "elf32_${TARGET_ARCH}"
 TUNE_LDARGS += "${@'-m ${LDEMULATION}' if '${LDEMULATION}' else ''}"
 
 # Additional search path for compiler component programs, to let us rebuild
@@ -131,6 +131,6 @@ GCC_VERSION[vardepvalue] = "${GCC_VERSION}"
 
 # macro-prefix-map was introduced in gcc 8
 REMOVE_MACRO_PREFIX_MAP = "-fmacro-prefix-map=${WORKDIR}=/usr/src/debug/${PN}/${EXTENDPE}${PV}-${PR}"
-DEBUG_PREFIX_MAP_remove_class-target = "${@'${REMOVE_MACRO_PREFIX_MAP}' if '${GCC_VERSION}' not in ['', 'UNKNOWN'] and [int(v) for v in '${GCC_VERSION}'.split('.')] < [8,0] else ''}"
+DEBUG_PREFIX_MAP:remove:class-target = "${@'${REMOVE_MACRO_PREFIX_MAP}' if '${GCC_VERSION}' not in ['', 'UNKNOWN'] and [int(v) for v in '${GCC_VERSION}'.split('.')] < [8,0] else ''}"
 
 BUILDCFG_VARS += "EXTERNAL_TOOLCHAIN EXTERNAL_TARGET_SYS GCC_VERSION"

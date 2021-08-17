@@ -15,7 +15,7 @@ python () {
     #; Set LIC_FILES_CHKSUM to a common license if it's unset and LICENSE is set
     licensestr = d.getVar('LICENSE', True)
     for pkg in d.getVar('PACKAGES', True).split():
-        pkg_lic = d.getVar('LICENSE_%s' % pkg, True)
+        pkg_lic = d.getVar('LICENSE:%s' % pkg, True)
         if pkg_lic:
             licensestr += ' ' + pkg_lic
 

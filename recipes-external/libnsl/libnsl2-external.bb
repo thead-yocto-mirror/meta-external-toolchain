@@ -10,16 +10,16 @@ SECTION = "libs"
 
 inherit external-toolchain
 
-FILES_${PN} = "${libdir}/libnsl*.so.* ${libdir}/libnsl-*.so"
-FILES_${PN}-dev = "${libdir}/libnsl.so ${includedir}/rpcsvc/nis*.h ${includedir}/rpcsvc/yp*.h"
-FILES_${PN}-staticdev = "${libdir}/libnsl.a"
+FILES:${PN} = "${libdir}/libnsl*.so.* ${libdir}/libnsl-*.so"
+FILES:${PN}-dev = "${libdir}/libnsl.so ${includedir}/rpcsvc/nis*.h ${includedir}/rpcsvc/yp*.h"
+FILES:${PN}-staticdev = "${libdir}/libnsl.a"
 
 libc_rdep = "${@'${PREFERRED_PROVIDER_virtual/libc}' if d.getVar('PREFERRED_PROVIDER_virtual/libc') else '${TCLIBC}'}"
-RDEPENDS_${PN} += "${libc_rdep}"
+RDEPENDS:${PN} += "${libc_rdep}"
 
 # Default to avoid parsing issue
 PREFERRED_PROVIDER_libtirpc ?= "libtirpc"
-RDEPENDS_${PN} += "${PREFERRED_PROVIDER_libtirpc}"
+RDEPENDS:${PN} += "${PREFERRED_PROVIDER_libtirpc}"
 
 do_install_extra () {
     # Depending on whether this comes from the standalone libnsl2 or glibc, the

@@ -64,6 +64,9 @@ do_install_extra () {
             ln -s "${EXTERNAL_TARGET_SYS}" "${D}${libdir}/${TARGET_SYS}"
         fi
     fi
+
+    # This belongs in gcc-runtime
+    rm -rf ${D}${libdir}/${TARGET_SYS}/${BINV}/include
 }
 
 do_package[prefuncs] += "add_sys_symlink"

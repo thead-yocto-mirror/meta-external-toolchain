@@ -41,8 +41,8 @@ PREFERRED_PROVIDER_${MLPREFIX}gdbserver ?= "${MLPREFIX}gdb"
 # This is defined in default-providers.inc, which is parsed before the tcmode,
 # so we can't use ?=
 PREFERRED_PROVIDER_linux-libc-headers = "glibc-external"
-PNBLACKLIST[linux-libc-headers] = "not building with an external toolchain"
-PNBLACKLIST[linux-libc-headers-yocto] = "not building with an external toolchain"
+SKIP_RECIPE[linux-libc-headers] = "not building with an external toolchain"
+SKIP_RECIPE[linux-libc-headers-yocto] = "not building with an external toolchain"
 
 PREFERRED_PROVIDER_gcc-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gcc-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"
 PREFERRED_PROVIDER_binutils-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "binutils-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"
@@ -59,18 +59,18 @@ TOOLCHAIN_TARGET_TASK:append = " sdk-env-external-toolchain"
 INHERIT += "sanity-external-toolchain"
 
 # Ensure that we don't pull in any internal toolchain recipes
-INHERIT += "blacklist blacklist_dynamic"
-PNBLACKLIST[uclibc] = "not building with an external toolchain"
-PNBLACKLIST[glibc] = "not building with an external toolchain"
-PNBLACKLIST[glibc-intermediate] = "not building with an external toolchain"
-PNBLACKLIST[gcc-runtime] = "not building with an external toolchain"
-PNBLACKLIST[gcc-sanitizers] = "not building with an external toolchain"
-PNBLACKLIST[gcc-source] = "not building with an external toolchain"
-PNBLACKLIST[libgcc-initial] = "not building with an external toolchain"
-PNBLACKLIST[libgcc] = "not building with an external toolchain"
-PNBLACKLIST[libgfortran] = "not building with an external toolchain"
+INHERIT += "skip_recipe_dynamic"
+SKIP_RECIPE[uclibc] = "not building with an external toolchain"
+SKIP_RECIPE[glibc] = "not building with an external toolchain"
+SKIP_RECIPE[glibc-intermediate] = "not building with an external toolchain"
+SKIP_RECIPE[gcc-runtime] = "not building with an external toolchain"
+SKIP_RECIPE[gcc-sanitizers] = "not building with an external toolchain"
+SKIP_RECIPE[gcc-source] = "not building with an external toolchain"
+SKIP_RECIPE[libgcc-initial] = "not building with an external toolchain"
+SKIP_RECIPE[libgcc] = "not building with an external toolchain"
+SKIP_RECIPE[libgfortran] = "not building with an external toolchain"
 
-PNBLACKLIST_DYNAMIC += "\
+SKIP_RECIPE_DYNAMIC += "\
     ${MLPREFIX}gcc-cross-${TARGET_ARCH} \
     \
     binutils-cross-canadian-${TRANSLATED_TARGET_ARCH} \
@@ -82,7 +82,7 @@ PNBLACKLIST_DYNAMIC += "\
 
 # We need our -cross recipes to rebuild when the external toolchain changes,
 # to recreate the links / wrapper scripts
-BB_HASHBASE_WHITELIST:remove = "EXTERNAL_TOOLCHAIN"
+BB_BASEHASH_IGNORE_VARS:remove = "EXTERNAL_TOOLCHAIN"
 
 # For a toolchain built with multilibs, we don't want any suffix implicitly
 # added to the oe sysroot path, as those dirs will not exist.

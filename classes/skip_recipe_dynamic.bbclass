@@ -1,18 +1,15 @@
-# Blacklist recipe names which include variable references, handling
-# multilibs.
+# Skip recipes for names which include variable references, handling multilibs.
 #
 # Ex.
-#     PNBLACKLIST_DYNAMIC += "${MLPREFIX}gcc-cross-${TARGET_ARCH}"
-#     PNBLACKLIST_DYNAMIC += "gcc-source-${@'${GCCVERSION}'.replace('%', '')}"
+#     SKIP_RECIPE_DYNAMIC += "${MLPREFIX}gcc-cross-${TARGET_ARCH}"
+#     SKIP_RECIPE_DYNAMIC += "gcc-source-${@'${GCCVERSION}'.replace('%', '')}"
 
-PNBLACKLIST_DYNAMIC ?= ""
+SKIP_RECIPE_DYNAMIC ?= ""
 
-inherit blacklist
-
-python pnblacklist_dynamic_setup () {
+python skip_recipe_dynamic_setup () {
     d = e.data
 
-    blacklisted = d.getVar('PNBLACKLIST_DYNAMIC', False)
+    blacklisted = d.getVar('SKIP_RECIPE_DYNAMIC', False)
     if not blacklisted.strip():
         return
 
@@ -34,10 +31,10 @@ python pnblacklist_dynamic_setup () {
             localdata.setVar('OVERRIDES', localdata.getVar('OVERRIDES', False) + override)
             bb.data.update_data(localdata)
 
-        to_blacklist |= set(filter(None, localdata.getVar('PNBLACKLIST_DYNAMIC').split()))
+        to_blacklist |= set(filter(None, localdata.getVar('SKIP_RECIPE_DYNAMIC').split()))
 
     for blrecipe in to_blacklist:
-        d.setVarFlag('PNBLACKLIST', blrecipe, 'blacklisted by PNBLACKLIST_DYNAMIC')
+        d.setVarFlag('SKIP_RECIPE', blrecipe, 'skipped by SKIP_RECIPE_DYNAMIC')
 }
-pnblacklist_dynamic_setup[eventmask] = "bb.event.ConfigParsed"
-addhandler pnblacklist_dynamic_setup
+skip_recipe_dynamic_setup[eventmask] = "bb.event.ConfigParsed"
+addhandler skip_recipe_dynamic_setup

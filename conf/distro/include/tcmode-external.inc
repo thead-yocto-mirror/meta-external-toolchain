@@ -88,7 +88,7 @@ BB_HASHBASE_WHITELIST:remove = "EXTERNAL_TOOLCHAIN"
 # TOOLCHAIN_OPTIONS would seem more appropriate, but that gets added to LD as
 # well, and --no-sysroot-suffix only works for gcc, not binutils.
 NO_SYSROOT_SUFFIX = " --no-sysroot-suffix"
-NO_SYSROOT_SUFFIX_toolchain-clang = ""
+NO_SYSROOT_SUFFIX:toolchain-clang = ""
 HOST_CC_ARCH .= "${NO_SYSROOT_SUFFIX}"
 
 # Certain recipes call ld directly, so ensure the correct emulation is used,

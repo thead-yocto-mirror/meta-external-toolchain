@@ -87,7 +87,9 @@ BB_HASHBASE_WHITELIST:remove = "EXTERNAL_TOOLCHAIN"
 # added to the oe sysroot path, as those dirs will not exist.
 # TOOLCHAIN_OPTIONS would seem more appropriate, but that gets added to LD as
 # well, and --no-sysroot-suffix only works for gcc, not binutils.
-HOST_CC_ARCH += "--no-sysroot-suffix"
+NO_SYSROOT_SUFFIX = " --no-sysroot-suffix"
+NO_SYSROOT_SUFFIX_toolchain-clang = ""
+HOST_CC_ARCH .= "${NO_SYSROOT_SUFFIX}"
 
 # Certain recipes call ld directly, so ensure the correct emulation is used,
 # particularly for multilib toolchains, since we can't rely on the default

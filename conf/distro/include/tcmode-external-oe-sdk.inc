@@ -3,6 +3,9 @@ require conf/distro/include/tcmode-external.inc
 # OE-built toolchains default to this, so don't pass it explicitly
 TARGET_LDFLAGS_BUILD_ID = ""
 
+# OE-built toolchains assume en_US is utf8
+EXTERNAL_TOOLCHAIN_FEATURES_DEFAULT ??= "locale-utf8-is-default"
+
 TCMODEOVERRIDES .= ":tcmode-external-oe-sdk"
 
 EXTERNAL_TARGET_SYS ?= "${TARGET_SYS}"

@@ -8,7 +8,8 @@ EXTERNAL_ENABLED = "1"
 #
 #   locale-utf8-is-default: assume en_US is utf8, not en_US.UTF-8, as is the
 #                           case for OE.
-EXTERNAL_TOOLCHAIN_FEATURES ?= ""
+EXTERNAL_TOOLCHAIN_FEATURES_DEFAULT ??= ""
+EXTERNAL_TOOLCHAIN_FEATURES ?= "${EXTERNAL_TOOLCHAIN_FEATURES_DEFAULT}"
 
 python () {
     oe.utils.features_backfill("EXTERNAL_TOOLCHAIN_FEATURES", d)

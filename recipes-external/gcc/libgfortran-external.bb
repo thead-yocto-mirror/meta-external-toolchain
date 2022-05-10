@@ -12,6 +12,9 @@ FILES_MIRRORS =. "${libdir}/gcc/${TARGET_SYS}/${GCC_VERSION}/|${external_libroot
 
 EXTERNAL_PROVIDE_PATTERN = "${FILES_${PN}}"
 
+RDEPENDS_${PN} += "${@'${PREFERRED_PROVIDER_virtual/libc}' if '${PREFERRED_PROVIDER_virtual/libc}' else '${TCLIBC}'}"
+INSANE_SKIP_${PN} += "build-deps file-rdeps"
+
 # We don't copy the static binaries and headers, since they don't belong to the
 # target sysroot, but need to be in the native one (that's the place where compiler
 # and linker are looking for them).

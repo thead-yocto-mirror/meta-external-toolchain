@@ -3,5 +3,5 @@
 # external toolchain.
 EFI_TUNE_ARCH = "-m32"
 EFI_TUNE_ARCH_x86-64 = "-m64"
-EFI_CC_tcmode-external = "${@'${CC}'.split()[0]} ${EFI_TUNE_ARCH}"
+EFI_CC_tcmode-external = "${CCACHE}${HOST_PREFIX}gcc ${EFI_TUNE_ARCH}"
 EXTRA_OECONF_append_tcmode-external = " 'EFI_CC=${EFI_CC}'"

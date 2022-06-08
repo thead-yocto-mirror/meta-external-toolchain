@@ -20,7 +20,7 @@ def run(d, cmd, *args):
 
         bb.debug(1, 'oe.external.run({})'.format(repr(args)))
         try:
-            output, _ = bb.process.run(args, cwd=topdir)
+            output, _ = bb.process.run(args, cwd=topdir, stderr=subprocess.STDOUT)
         except bb.process.CmdError as exc:
             bb.debug(1, 'oe.external.run: {} failed: {}'.format(subprocess.list2cmdline(args), exc))
         else:

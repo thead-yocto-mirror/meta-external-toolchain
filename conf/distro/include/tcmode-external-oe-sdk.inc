@@ -150,7 +150,7 @@ def get_setup_script_env(paths, d):
             bb.debug(1, "tcmode-external-oe-sdk: selected setup script {}".format(setup))
 
     if not setup:
-        bb.fatal('tcmode-external-oe-sdk: failed to determine setup script path for sdk, please set EXTERNAL_TOOLCHAIN_SETUP_SCRIPT to the full path to the environment setup script.')
+        bb.fatal("tcmode-external-oe-sdk: no compatible toolchain for tuning `{}` found in TOOLCHAIN_PATHS ({})".format(d.getVar("TUNE_PKGARCH"), ", ".join(str(p) for p in paths)))
     return setup, env
 
 def setup_get(setup, field):

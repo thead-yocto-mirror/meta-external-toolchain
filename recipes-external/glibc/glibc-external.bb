@@ -203,7 +203,7 @@ FILES:${PN}-dev:remove := "${datadir}/aclocal"
 FILES:${PN}-dev:remove = "/lib/*.o"
 FILES:${PN}-dev += "${libdir}/*crt*.o"
 
-linux_include_subdirs = "asm asm-generic bits drm linux mtd rdma sound sys video"
+linux_include_subdirs = "asm asm-generic bits drm linux mtd rdma sound video"
 FILES:${PN}-dev += "${@' '.join('${includedir}/%s' % d for d in '${linux_include_subdirs}'.split())}"
 
 # Already multilib headers for oe sdks

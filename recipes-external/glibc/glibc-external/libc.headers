@@ -108,7 +108,6 @@ stropts.h
 sys/acct.h
 sys/auxv.h
 sys/bitypes.h
-sys/capability.h
 sys/cdefs.h
 sys/dir.h
 sys/elf.h
@@ -139,7 +138,6 @@ sys/poll.h
 sys/prctl.h
 sys/procfs.h
 sys/profil.h
-sys/psx_syscall.h
 sys/ptrace.h
 sys/queue.h
 sys/quota.h

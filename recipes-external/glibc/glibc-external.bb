@@ -37,7 +37,7 @@ def get_external_libc_license(d):
    License as published by the Free Software Foundation; either
    version 2.1 of the License, or (at your option) any later version."""
                 if lictext in text:
-                    return 'LGPL-2.1+'
+                    return 'LGPL-2.1-or-later'
 
     return 'UNKNOWN'
 

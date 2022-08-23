@@ -23,8 +23,6 @@ python () {
     checksums = set()
     for license in licenses:
         if license != 'CLOSED' and d.getVar('LIC_FILES_CHKSUM', False) == '${COMMON_LIC_CHKSUM}':
-            license = mapped_license(license, d)
-
             ext_chksum_var = 'COMMON_LIC_CHKSUM_{0}'.format(license)
             if d.getVar(ext_chksum_var, True):
                 checksums.add('${%s}' % ext_chksum_var)
@@ -37,12 +35,3 @@ python () {
                     bb.fatal('{0}: No available license checksum info for this license. Either set LIC_FILES_CHKSUM, or define:\n  {1} = "{2}"'.format(d.getVar('PF', True), ext_chksum_var, chksum))
     d.setVar('COMMON_LIC_CHKSUM', ' '.join(checksums))
 }
-
-def mapped_license(license, d):
-    if license.endswith('+'):
-        license = license[:-1]
-
-    mapped = d.getVarFlag('SPDXLICENSEMAP', license, False)
-    if mapped:
-        license = mapped
-    return license

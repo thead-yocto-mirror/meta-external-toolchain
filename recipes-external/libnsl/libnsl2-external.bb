@@ -23,10 +23,13 @@ RDEPENDS:${PN} += "${PREFERRED_PROVIDER_libtirpc}"
 
 do_install_extra () {
     # Depending on whether this comes from the standalone libnsl2 or glibc, the
-    # soname may vary, hence covering both 1 and 2, and it may be installed in
-    # base_libdir instead of libdir, but the FILES configuration may result in its
-    # location changing, breaking the libnsl.so symlink, so recreate it here.
+    # soname may vary, and it may be installed in base_libdir instead of
+    # libdir, but the FILES configuration may result in its location changing,
+    # breaking the libnsl.so symlink, so recreate it here.
     cd ${D}${libdir}/ || exit 1
     rm -f libnsl.so
-    ln -s libnsl.so.[12] libnsl.so
+    ln -s libnsl.so.[0-9] libnsl.so
+    if ! [ -e libnsl.so ]; then
+        bbfatal Failed to symlink libnsl.so
+    fi
 }

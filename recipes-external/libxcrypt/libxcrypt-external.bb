@@ -7,12 +7,12 @@ PROVIDES = "virtual/crypt"
 
 inherit external-toolchain
 
-EXTERNAL_PROVIDE_PATTERN = "${libdir}/libcrypt*.so.*"
+EXTERNAL_PROVIDE_PATTERN = "${libdir}/libcrypt.so.*"
 
 libc_rdep = "${@'${PREFERRED_PROVIDER_virtual/libc}' if '${PREFERRED_PROVIDER_virtual/libc}' else '${TCLIBC}'}"
 RDEPENDS:${PN} += "${libc_rdep}"
 
-FILES:${PN} = "${libdir}/libcrypt*.so.* \
+FILES:${PN} = "${libdir}/libcrypt.so.* \
                ${libdir}/libcrypt-*.so \
                ${libdir}/libowcrypt*.so.* \
                ${libdir}/libowcrypt-*.so \

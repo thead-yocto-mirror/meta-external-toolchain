@@ -86,6 +86,8 @@ def external_run(d, *args):
     import oe.external
     return oe.external.run(d, *args)
 
+external_run[vardepsexclude] += "LAYERDIR_external-toolchain"
+
 def external_get_kernel_version(d, p):
     if (not d.getVar('TCMODE', True).startswith('external') or
             not d.getVar('EXTERNAL_TOOLCHAIN', True)):

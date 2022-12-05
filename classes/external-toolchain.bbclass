@@ -13,6 +13,8 @@
 # LIC_FILES_CHKSUM, so use the license from common-licenses
 inherit common-license
 
+OVERRIDES =. "external:"
+
 # We don't extract anything which will create S, and we don't want to see the
 # warning about it
 S = "${WORKDIR}"

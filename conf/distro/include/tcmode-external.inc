@@ -38,12 +38,6 @@ PREFERRED_PROVIDER_oprofile ??= "oprofile"
 # obeyed for the runtime package installation.
 PREFERRED_PROVIDER_${MLPREFIX}gdbserver ?= "${MLPREFIX}gdb"
 
-# This is defined in default-providers.inc, which is parsed before the tcmode,
-# so we can't use ?=
-PREFERRED_PROVIDER_linux-libc-headers = "glibc-external"
-SKIP_RECIPE[linux-libc-headers] = "not building with an external toolchain"
-SKIP_RECIPE[linux-libc-headers-yocto] = "not building with an external toolchain"
-
 PREFERRED_PROVIDER_gcc-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gcc-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"
 PREFERRED_PROVIDER_binutils-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "binutils-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"
 PREFERRED_PROVIDER_gdb-cross-canadian-${TRANSLATED_TARGET_ARCH} ??= "gdb-external-cross-canadian-${TRANSLATED_TARGET_ARCH}"

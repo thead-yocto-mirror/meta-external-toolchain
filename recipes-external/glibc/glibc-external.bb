@@ -17,9 +17,7 @@ DEPENDS = "virtual/${TARGET_PREFIX}binutils"
 PROVIDES += "glibc \
              virtual/libc \
              virtual/libintl \
-             virtual/libiconv \
-             linux-libc-headers \
-             linux-libc-headers-dev"
+             virtual/libiconv"
 
 def get_external_libc_license(d):
     if (d.getVar('TCMODE', True).startswith('external') and

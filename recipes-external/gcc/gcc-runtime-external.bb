@@ -2,19 +2,13 @@ PV = "${GCC_VERSION}"
 BINV = "${GCC_VERSION}"
 
 require recipes-devtools/gcc/gcc-runtime.inc
+require recipes-external/gcc/gcc-no-shared-source.inc
 inherit external-toolchain
 
 # GCC >4.2 is GPLv3
 DEPENDS = "libgcc"
 EXTRA_OECONF = ""
 COMPILERDEP = ""
-
-python () {
-    lic_deps = d.getVarFlag('do_populate_lic', 'depends', False)
-    d.setVarFlag('do_populate_lic', 'depends', lic_deps.replace('gcc-source-${PV}:do_unpack', ''))
-    cfg_deps = d.getVarFlag('do_configure', 'depends', False)
-    d.setVarFlag('do_configure', 'depends', cfg_deps.replace('gcc-source-${PV}:do_preconfigure', ''))
-}
 
 target_libdir = "${libdir}"
 external_libroot = "${@os.path.realpath('${EXTERNAL_TOOLCHAIN_LIBROOT}').replace(os.path.realpath('${EXTERNAL_TOOLCHAIN}') + '/', '/')}"

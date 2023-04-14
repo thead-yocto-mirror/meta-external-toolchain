@@ -15,10 +15,6 @@ inherit common-license
 
 OVERRIDES =. "external:"
 
-# We don't extract anything which will create S, and we don't want to see the
-# warning about it
-S = "${WORKDIR}"
-
 # Prebuilt binaries, no need for any default dependencies
 INHIBIT_DEFAULT_DEPS = "1"
 

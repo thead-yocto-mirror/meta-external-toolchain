@@ -5,6 +5,8 @@ require recipes-devtools/gcc/gcc-runtime.inc
 require recipes-external/gcc/gcc-no-shared-source.inc
 inherit external-toolchain
 
+REL_S = "/usr/src/debug/gcc/${EXTENDPE}${GCC_VERSION}-${PR}"
+
 # GCC >4.2 is GPLv3
 DEPENDS = "libgcc"
 EXTRA_OECONF = ""

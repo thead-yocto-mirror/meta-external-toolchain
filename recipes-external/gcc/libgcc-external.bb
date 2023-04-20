@@ -7,6 +7,11 @@ PV = "${GCC_VERSION}"
 
 inherit external-toolchain
 
+DEBUG_PREFIX_MAP:append = "\
+    -fdebug-prefix-map=${WORKDIR}/libgcc=/usr/src/debug/gcc/${EXTENDPE}${GCC_VERSION}-${PR}/libgcc \
+    -fdebug-prefix-map=${WORKDIR}/gcc-${GCC_VERSION}/libgcc=/usr/src/debug/gcc/${EXTENDPE}${GCC_VERSION}-${PR}/gcc-${GCC_VERSION}/libgcc \
+"
+
 LICENSE = "GPL-3.0-with-GCC-exception"
 
 # libgcc needs libc, but glibc's utilities need libgcc, so short-circuit the

@@ -7,6 +7,31 @@ SECTION = "devel"
 
 inherit external-toolchain
 
-FILES:${PN} = "${bindir}/op* ${datadir}/oprofile"
-FILES:${PN}-doc = "${docdir}/oprofile ${mandir}/man1/op*"
+FILES:${PN} = "\
+    ${bindir}/ocount \
+    ${bindir}/op-* \
+    ${bindir}/operf \
+    ${bindir}/opannotate \
+    ${bindir}/opimport \
+    ${bindir}/opgprof \
+    ${bindir}/ophelp \
+    ${bindir}/opjitconv \
+    ${bindir}/oparchive \
+    ${bindir}/opreport \
+    ${datadir}/oprofile \
+"
+FILES:${PN}-doc = " \
+    ${docdir}/oprofile \
+    ${mandir}/man1/ocount \
+    ${mandir}/man1/op-* \
+    ${mandir}/man1/operf \
+    ${mandir}/man1/opannotate \
+    ${mandir}/man1/opimport \
+    ${mandir}/man1/opgprof \
+    ${mandir}/man1/ophelp \
+    ${mandir}/man1/opjitconv \
+    ${mandir}/man1/opparchive \
+    ${mandir}/man1/opreport \
+"
 FILES:${PN}-staticdev = "${libdir}/oprofile/*.a"
+

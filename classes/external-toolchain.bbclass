@@ -11,7 +11,7 @@
 
 # Since these are prebuilt binaries, there are no source files to checksum for
 # LIC_FILES_CHKSUM, so use the license from common-licenses
-inherit common-license
+inherit common-license external-debugsrc
 
 OVERRIDES =. "external:"
 

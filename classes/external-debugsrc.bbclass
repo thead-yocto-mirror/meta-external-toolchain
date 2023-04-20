@@ -49,10 +49,8 @@ python external_debugsrc () {
 
                         for sysroot_path in entry:
                             bb.utils.mkdirhier(from_path)
+                            oe.path.copyhardlinktree(sysroot_path, from_path)
                             bb.debug(1, "external_debugsrc: '%s' -> '%s'" % (sysroot_path, from_path))
-                            subprocess.check_call(['cp', '-PR', '--preserve=mode,timestamps',
-                                                    '--no-preserve=ownership',
-                                                    sysroot_path + '/.', from_path + '/'])
                 else:
                     bb.debug(1, "external_debugsrc: '%s' not found" % to_path)
 

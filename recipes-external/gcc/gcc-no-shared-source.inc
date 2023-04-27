@@ -7,6 +7,9 @@ python () {
     d.setVarFlag('do_deploy_source_date_epoch', 'depends', epoch_deps.replace('gcc-source-${PV}:do_deploy_source_date_epoch', ''))
 }
 
+addtask do_fetch
+addtask do_unpack before do_install after do_fetch
+
 do_deploy_source_date_epoch () {
     mkdir -p ${SDE_DEPLOYDIR}
     if [ -e ${SDE_FILE} ]; then

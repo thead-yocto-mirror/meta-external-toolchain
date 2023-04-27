@@ -11,13 +11,9 @@
 
 # Since these are prebuilt binaries, there are no source files to checksum for
 # LIC_FILES_CHKSUM, so use the license from common-licenses
-inherit common-license
+inherit common-license external-debugsrc
 
 OVERRIDES =. "external:"
-
-# We don't extract anything which will create S, and we don't want to see the
-# warning about it
-S = "${WORKDIR}"
 
 # Prebuilt binaries, no need for any default dependencies
 INHIBIT_DEFAULT_DEPS = "1"

@@ -7,6 +7,17 @@ inherit external-toolchain
 
 REL_S = "/usr/src/debug/gcc/${EXTENDPE}${GCC_VERSION}-${PR}"
 
+DEBUG_PREFIX_MAP:class-target = " \
+   -fdebug-prefix-map=${WORKDIR}/${MLPREFIX}recipe-sysroot= \
+   -fdebug-prefix-map=${WORKDIR}/recipe-sysroot-native= \
+   -fdebug-prefix-map=${S}=${REL_S} \
+   -fdebug-prefix-map=${S}/include=${REL_S}/libstdc++-v3/../include \
+   -fdebug-prefix-map=${S}/libiberty=${REL_S}/libstdc++-v3/../libiberty \
+   -fdebug-prefix-map=${S}/libgcc=${REL_S}/libstdc++-v3/../libgcc \
+   -fdebug-prefix-map=${B}=${REL_S} \
+   -ffile-prefix-map=${B}/${HOST_SYS}/libstdc++-v3/include=${includedir}/c++/${BINV} \
+"
+
 # GCC >4.2 is GPLv3
 DEPENDS = "libgcc"
 EXTRA_OECONF = ""
@@ -29,6 +40,12 @@ python () {
     adjusted = adjusted.replace('mkdir', 'mkdir_if_no_dest')
     d.setVar('do_install_added', adjusted)
 }
+
+remove_libgcc_src () {
+    rm -rfv "${S}/gcc-${GCC_VERSION}/libgcc"
+}
+
+do_unpack[postfuncs] += "remove_libgcc_src"
 
 link_if_no_dest () {
     if ! [ -e "$2" ] && ! [ -L "$2" ]; then

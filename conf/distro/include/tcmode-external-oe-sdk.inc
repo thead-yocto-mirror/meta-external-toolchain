@@ -52,7 +52,7 @@ def setup_external_vars(paths, localdata, d):
 
     mlprefix = localdata.getVar('MLPREFIX')
     if mlprefix:
-        suffix = '_virtclass-multilib-' + mlprefix[:-1]
+        suffix = ':virtclass-multilib-' + mlprefix[:-1]
     else:
         suffix = ''
 

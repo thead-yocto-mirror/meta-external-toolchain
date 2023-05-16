@@ -5,7 +5,7 @@ inherit external-toolchain cross-canadian
 STRIP:task-package = "strip"
 STRIP:task-populate-sysroot = "strip"
 OBJCOPY:task-package = "objcopy"
-PACKAGE_DEPENDS:remove = "virtual/${TARGET_PREFIX}binutils"
+PACKAGE_DEPENDS:remove = "virtual/${MLPREFIX}${TARGET_PREFIX}binutils"
 
 # Scan just toolchains root directory, but include some additional mirrors
 EXTERNAL_INSTALL_SOURCE_PATHS = "${EXTERNAL_TOOLCHAIN}"

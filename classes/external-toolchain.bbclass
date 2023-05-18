@@ -166,7 +166,6 @@ FILES:${PN}-locale = ""
 
 def debug_paths(d):
     l = d.createCopy()
-    l.finalize()
     paths = []
     exclude = [
         l.getVar('datadir', True),

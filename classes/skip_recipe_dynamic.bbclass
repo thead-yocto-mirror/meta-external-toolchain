@@ -29,7 +29,6 @@ python skip_recipe_dynamic_setup () {
             localdata.setVar('MLPREFIX', prefix + '-')
             override = ':virtclass-multilib-' + prefix
             localdata.setVar('OVERRIDES', localdata.getVar('OVERRIDES', False) + override)
-            bb.data.update_data(localdata)
 
         to_blacklist |= set(filter(None, localdata.getVar('SKIP_RECIPE_DYNAMIC').split()))
 

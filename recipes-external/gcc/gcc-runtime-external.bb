@@ -29,7 +29,7 @@ FILES_MIRRORS =. "\
 # The do_install:append in gcc-runtime.inc doesn't do well if the links
 # already exist, as it causes a recursion that breaks traversal.
 python () {
-    adjusted = d.getVar('do_install_added').replace('ln -s', 'link_if_no_dest')
+    adjusted = d.getVar('do_install_added', expand=False).replace('ln -s', 'link_if_no_dest')
     adjusted = adjusted.replace('mkdir', 'mkdir_if_no_dest')
     d.setVar('do_install_added', adjusted)
 }

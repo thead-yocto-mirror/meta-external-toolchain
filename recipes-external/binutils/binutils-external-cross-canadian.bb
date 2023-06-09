@@ -11,6 +11,8 @@ FILES:${PN} = "\
 
 do_install:append () {
     if [ ! -e ${D}${bindir}/${EXTERNAL_TARGET_SYS}-ld.bfd ]; then
+		rm -rf ${D}${bindir}/${EXTERNAL_TARGET_SYS}-ld.bfd
+		echo "ln -s ${EXTERNAL_TARGET_SYS}-ld ${D}${bindir}/${EXTERNAL_TARGET_SYS}-ld.bfd"
         ln -s ${EXTERNAL_TARGET_SYS}-ld ${D}${bindir}/${EXTERNAL_TARGET_SYS}-ld.bfd
     fi
 }

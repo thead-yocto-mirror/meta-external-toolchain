@@ -24,14 +24,14 @@ PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}compilerlibs ?= "gcc-runtime-external
 PREFERRED_PROVIDER_gcc-runtime = "gcc-runtime-external"
 PREFERRED_PROVIDER_gcc-sanitizers ?= "gcc-sanitizers-external"
 PREFERRED_PROVIDER_libgcc-initial = "libgcc-external"
-PREFERRED_PROVIDER_libnsl2 = "libnsl2-external"
-PREFERRED_PROVIDER_libtirpc = "libtirpc-external"
-PREFERRED_PROVIDER_libgfortran = "libgfortran-external"
+PREFERRED_PROVIDER_libnsl2 = "libnsl2"
+PREFERRED_PROVIDER_libtirpc = "libtirpc"
+# PREFERRED_PROVIDER_libgfortran = "libgfortran-external"
 PREFERRED_PROVIDER_glibc ?= "glibc-external"
 PREFERRED_PROVIDER_virtual/libc ?= "glibc-external"
 PREFERRED_PROVIDER_virtual/libintl ?= "glibc-external"
 PREFERRED_PROVIDER_virtual/libiconv ?= "glibc-external"
-PREFERRED_PROVIDER_virtual/crypt ?= "libxcrypt-external"
+PREFERRED_PROVIDER_virtual/crypt ?= "libxcrypt"
 PREFERRED_PROVIDER_gdb-cross-${TARGET_ARCH} ?= "gdb-external-cross-${TARGET_ARCH}"
 PREFERRED_PROVIDER_oprofile ??= "oprofile"
 # Work around bug where the implicitly created mlprefix preference isn't being
@@ -105,7 +105,7 @@ TUNE_LDARGS += "${@'-m ${LDEMULATION}' if '${LDEMULATION}' else ''}"
 # Additional search path for compiler component programs, to let us rebuild
 # binutils if necessary.
 gcc_bindir = "${STAGING_BINDIR_TOOLCHAIN}/gcc"
-TUNE_CCARGS .= "${@' -B${gcc_bindir}' if d.getVar('PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}binutils') != 'binutils-external-cross-${TARGET_ARCH}' else ''}"
+TARGET_CC_ARCH .= "${@' -B${gcc_bindir}' if d.getVar('PREFERRED_PROVIDER_virtual/${TARGET_PREFIX}binutils') != 'binutils-external-cross-${TARGET_ARCH}' else ''}"
 
 # Align the external toolchain ldflags with the internal
 TARGET_LDFLAGS_BUILD_ID = "-Wl,--build-id=sha1"

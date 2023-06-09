@@ -170,6 +170,7 @@ python () {
     baselibs = d.getVar('libc_baselibs', False)
     baselibs = baselibs.replace('${base_libdir}/libm*.so.*', '${base_libdir}/libm.so.* ${base_libdir}/libmvec.so.*')
     baselibs = baselibs.replace('${base_libdir}/libnsl*.so.* ${base_libdir}/libnsl-*.so', '')
+    print(baselibs)
     d.setVar('libc_baselibs', baselibs)
 }
 
@@ -196,6 +197,7 @@ FILES:${PN} += "\
     ${libdir}/locale \
     ${datadir}/locale \
     ${datadir}/i18n \
+    ${prefix}/lib64xthead/lp64d \
 "
 
 FILES:${PN}-dev:remove := "${datadir}/aclocal"
@@ -231,6 +233,7 @@ FILES:${PN}-dev += "\
     ${includedir}/fpu_control.h \
     ${includedir}/stdc-predef.h \
     ${includedir}/uchar.h \
+    ${includedir}/features-time64.h \
 "
 FILES:${PN}-dev[file-checksums] += "${libc_headers_file}:True"
 
@@ -243,9 +246,14 @@ do_package_write_rpm[depends] += "${MLPREFIX}libgcc:do_packagedata"
 # glibc may need libssp for -fstack-protector builds
 do_packagedata[depends] += "gcc-runtime:do_packagedata"
 
+python do_package:append() {
+    bb.utils.mkdirhier(pkgdest + '/' + pn + '/lib64xthead')
+    os.symlink("../lib", pkgdest + '/' + pn + '/lib64xthead/lp64d')
+}
+
 # We don't need linux-libc-headers
 LINUX_LIBC_RDEP_REMOVE ?= "linux-libc-headers-dev"
 RDEPENDS:${PN}-dev:remove = "${LINUX_LIBC_RDEP_REMOVE}"
 
-FILES:${PN}-dev:remove = "${base_libdir}/*_nonshared.a ${libdir}/*_nonshared.a"
-FILES:${PN}-dev += "${libdir}/libc_nonshared.a ${libdir}/libpthread_nonshared.a ${libdir}/libmvec_nonshared.a"
+# FILES:${PN}-dev:remove = "${base_libdir}/*_nonshared.a ${libdir}/*_nonshared.a"
+# FILES:${PN}-dev += "${libdir}/libc_nonshared.a ${libdir}/libpthread_nonshared.a ${libdir}/libmvec_nonshared.a"

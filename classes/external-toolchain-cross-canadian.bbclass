@@ -33,7 +33,7 @@ do_install:append () {
     for i in ${D}${bindir}/${EXTERNAL_TARGET_SYS}-*; do
         if [ -e "$i" ]; then
             j="$(basename "$i")"
-            ln -sv "$j" "${D}${bindir}/${TARGET_PREFIX}${j#${EXTERNAL_TARGET_SYS}-}"
+            #ln -sv "$j" "${D}${bindir}/${TARGET_PREFIX}${j#${EXTERNAL_TARGET_SYS}-}"
         fi
     done
 }
